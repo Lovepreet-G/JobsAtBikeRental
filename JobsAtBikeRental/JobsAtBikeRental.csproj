@@ -300,6 +300,7 @@
     <Content Include="jsondata\applicant.json" />
     <Content Include="jsondata\jobPosition.json" />
     <Content Include="jsondata\staff.json" />
+    <Content Include="jsondata\applicantHistory.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

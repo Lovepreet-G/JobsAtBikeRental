@@ -1,6 +1,8 @@
 ﻿using JobsAtBikeRental.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -108,6 +110,61 @@ namespace JobsAtBikeRental.Controllers
             }));
 
             return Ok(ahDTOS);
+        }
+        /// <summary>
+        /// Updates a particular ApplicantHistory in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Represents the ApplicantHistory ID primary key</param>
+        /// <param name="applicantHistory">JSON FORM DATA of an ApplicantHistory</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// POST: api/HistoryData/UpdateHistory/1
+        /// FORM DATA: applicantHistory JSON Object
+        /// </example>
+        [ResponseType(typeof(void))]
+        [Route("api/HistoryData/UpdateHistory/{id}")]
+        [HttpPost]
+        public IHttpActionResult UpdateHistory(int id, ApplicantHistory ah)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != ah.ApplicantHistoryId)
+            {
+
+                return BadRequest();
+            }
+
+            db.Entry(ah).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ApplicantHistoryExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+        private bool ApplicantHistoryExists(int id)
+        {
+            return db.ApplicantHistories.Count(e => e.ApplicantHistoryId == id) > 0;
         }
     }
 }
