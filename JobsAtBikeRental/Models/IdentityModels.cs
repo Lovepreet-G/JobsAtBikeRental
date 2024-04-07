@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -24,7 +25,11 @@ namespace JobsAtBikeRental.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+        public DbSet<Applicant> Applicants { get; set; }
+        public DbSet<JobPosition> JobPositions { get; set; }
+
+        public DbSet<ApplicantHistory> ApplicantHistories { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
