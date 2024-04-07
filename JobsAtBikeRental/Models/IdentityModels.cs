@@ -30,6 +30,8 @@ namespace JobsAtBikeRental.Models
 
         public DbSet<ApplicantHistory> ApplicantHistories { get; set; }
 
+        public DbSet<Staff> Staffs { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
