@@ -1,11 +1,14 @@
 ﻿using JobsAtBikeRental.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using JobsAtBikeRental.Migrations;
 
 namespace JobsAtBikeRental.Controllers
 {
@@ -103,6 +106,119 @@ namespace JobsAtBikeRental.Controllers
             }
 
             return Ok(jobPositionDTOS);
+        }
+        /// <summary>
+        /// Updates a particular JobPosition in the system with POST Data input
+        /// </summary>
+        /// <param name="id">Represents the JobPosition ID primary key</param>
+        /// <param name="jobPosition">JSON FORM DATA of an JobPosition</param>
+        /// <returns>
+        /// HEADER: 204 (Success, No Content Response)
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// or
+        /// HEADER: 404 (Not Found)
+        /// </returns>
+        /// <example>
+        /// POST: api/JobPositionData/UpdateJobPosition/2
+        /// FORM DATA: jobPosition JSON Object
+        /// </example>
+        [ResponseType(typeof(void))]
+        [Route("api/JobPositionData/UpdateJobPosition/{id}")]
+        [HttpPost]
+        public IHttpActionResult UpdateJobPosition(int id, JobPosition j)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != j.JobPositionId)
+            {
+
+                return BadRequest();
+            }
+
+            db.Entry(j).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!JobPositionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+        /// <summary>
+        /// Adds an JobPosition to the system
+        /// </summary>
+        /// <param name="jobPosition">JSON FORM DATA of an JobPosition</param>
+        /// <returns>
+        /// HEADER: 201 (Created)
+        /// CONTENT: JobPosition ID, JobPosition Data
+        /// or
+        /// HEADER: 400 (Bad Request)
+        /// </returns>
+        /// <example>
+        /// POST: api/JobPositionData/AddJobPosition
+        /// FORM DATA: jobPosition JSON Object
+        /// </example>
+        [ResponseType(typeof(JobPosition))]
+        [Route("api/JobPositionData/AddJobPosition")]
+        [HttpPost]
+        public IHttpActionResult AddJobPosition(JobPosition j)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.JobPositions.Add(j);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = j.JobPositionId }, j);
+        }
+        /// <summary>
+        /// Deletes an JobPosition from the system by it's ID.
+        /// </summary>
+        /// <param name="id">The primary key of the JobPosition</param>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// or
+        /// HEADER: 404 (NOT FOUND)
+        /// </returns>
+        /// <example>
+        /// POST: api/JobPositionData/DeleteJobPosition/3
+        /// FORM DATA: (empty)
+        /// </example>
+        [ResponseType(typeof(JobPosition))]
+        [Route("api/JobPositionData/DeleteJobPosition/{id}")]
+        [HttpPost]
+        public IHttpActionResult DeleteJobPosition(int id)
+        {
+            JobPosition j = db.JobPositions.Find(id);
+            if (j == null)
+            {
+                return NotFound();
+            }
+
+            db.JobPositions.Remove(j);
+            db.SaveChanges();
+
+            return Ok();
+        }
+        private bool JobPositionExists(int id)
+        {
+            return db.JobPositions.Count(e => e.JobPositionId == id) > 0;
         }
     }
 }
