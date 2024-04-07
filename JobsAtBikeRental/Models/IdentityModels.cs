@@ -32,7 +32,8 @@ namespace JobsAtBikeRental.Models
 
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<bike> bikes { get; set; }
-
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<RentalHistory> rentalHistories { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

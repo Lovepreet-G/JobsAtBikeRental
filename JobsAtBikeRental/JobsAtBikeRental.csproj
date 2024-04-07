@@ -235,14 +235,24 @@
     <Compile Include="Migrations\202404070226282_bike.designer.cs">
       <DependentUpon>202404070226282_bike.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202404070259273_customer.cs" />
+    <Compile Include="Migrations\202404070259273_customer.designer.cs">
+      <DependentUpon>202404070259273_customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202404070326013_rentalhistory.cs" />
+    <Compile Include="Migrations\202404070326013_rentalhistory.designer.cs">
+      <DependentUpon>202404070326013_rentalhistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Applicant.cs" />
     <Compile Include="Models\ApplicantHistory.cs" />
     <Compile Include="Models\bike.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JobPosition.cs" />
+    <Compile Include="Models\RentalHistory.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -410,6 +420,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202404070226282_bike.resx">
       <DependentUpon>202404070226282_bike.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404070259273_customer.resx">
+      <DependentUpon>202404070259273_customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202404070326013_rentalhistory.resx">
+      <DependentUpon>202404070326013_rentalhistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
