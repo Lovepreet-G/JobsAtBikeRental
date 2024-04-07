@@ -14,7 +14,6 @@ namespace JobsAtBikeRental.Models
         public string BikeBrand { get; set; }
 
         public string BikeModel { get; set; }
-        //Rate per day in Cad
         public int BikeRate { get; set; }
     }
     public class bikeDto

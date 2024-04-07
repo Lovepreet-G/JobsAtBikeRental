@@ -13,6 +13,8 @@ namespace JobsAtBikeRental.Models
         public string JobTitle { get; set; }
 
         public string JobLocation { get; set; }
+
+        public ICollection<ApplicantHistory> ApplicantHistories { get; set; }
     }
     public class JobPositionDTO
     {
