@@ -211,6 +211,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicantDataController.cs" />
     <Compile Include="Controllers\BikeDataController.cs" />
+    <Compile Include="Controllers\CustomerDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobPositionDataController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
